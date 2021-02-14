@@ -1,10 +1,6 @@
 package main
 
-import (
-	"CodeforcesAPI/Query"
-	"CodeforcesAPI/Stats"
-	"fmt"
-)
+import "CodeforcesAPI/Prompt"
 
 func main(){
 	//err, lst := Query.ContestList{}.GetContestList(false, 5)
@@ -38,7 +34,7 @@ func main(){
 	//
 	//fmt.Println(Stats.ContestStats{1457}.GetAverageChangeInRatings())
 	//fmt.Println(Stats.ContestStats{1400}.GetUserInContest("Dainty_Lord"))
-	fmt.Println(Stats.ContestStats{1457}.GetNumberOfOvertakes("Dainty_Lord"))
+	//fmt.Println(Stats.ContestStats{1457}.GetNumberOfOvertakes("Dainty_Lord"))
 
 	//x, y := Query.UserQueries{}.GetUserStatus("Dainawdty_Lord", 1, 10)
 	//if x != nil{
@@ -46,9 +42,14 @@ func main(){
 	//}
 	//fmt.Println(y)
 
-	a, b := Query.ProblemSetQuery{}.GetProblems([]string{"implementation"}, "")
-	if a != nil{
-		panic(a)
-	}
-	fmt.Println(b)
+	//a, b := Query.ProblemSetQuery{}.GetProblems([]string{"implementation"}, "")
+	//if a != nil{
+	//	panic(a)
+	//}
+	//fmt.Println(b)
+
+	//_, y := Stats.UserStats{"Dainty_Lord"}.GetUserAccuracy()
+	//fmt.Println(y)
+
+	Prompt.ContestStatsPrompt()
 }

@@ -23,10 +23,11 @@ func (pQ ProblemSetQuery)GetProblems(tagList []string, problemSetName string)(er
 		}
 	}
 	resp, err := http.Get(url)
-	defer resp.Body.Close()
 	if err != nil{
 		return err, nil
 	}
+	defer resp.Body.Close()
+
 	jsonStr, readErr := ioutil.ReadAll(resp.Body)
 	if readErr != nil{
 		return readErr, nil

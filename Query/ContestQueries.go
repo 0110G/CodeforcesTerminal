@@ -16,10 +16,10 @@ type ContestQueries struct{}
 func(cQ ContestQueries)GetRatingsChange(contestId uint, numberOfRatings int)(error, []Objects.RatingChange){
 	url := "https://codeforces.com/api/contest.ratingChanges?contestId=" + strconv.Itoa(int(contestId))
 	resp, err := http.Get(url)
-	defer resp.Body.Close()
 	if err != nil{
 		return err, nil
 	}
+	defer resp.Body.Close()
 	jsonStr, readErr := ioutil.ReadAll(resp.Body)
 	if readErr != nil{
 		return readErr, nil

@@ -23,10 +23,10 @@ func(users UserQueries)GetUsers(handles []string)(error, []Objects.User){
 		}
 	}
 	resp, err := http.Get(url)
-	defer resp.Body.Close()
 	if err != nil{
 		return err, nil
 	}
+	defer resp.Body.Close()
 	jsonStr, readErr := ioutil.ReadAll(resp.Body)
 	if readErr != nil{
 		return readErr, nil
@@ -73,10 +73,10 @@ func(users UserQueries)GetUsers(handles []string)(error, []Objects.User){
 func(user UserQueries)GetUserStatus(handle string, from int, count int) (error, []Objects.Submission){
 	url := "https://codeforces.com/api/user.status?handle=" + handle + "&from=" + strconv.Itoa(from) + "&count=" + strconv.Itoa(count)
 	resp, err := http.Get(url)
-	defer resp.Body.Close()
 	if err != nil{
 		return err, nil
 	}
+	defer resp.Body.Close()
 	jsonStr, readErr := ioutil.ReadAll(resp.Body)
 	if readErr != nil{
 		return readErr, nil
@@ -108,8 +108,8 @@ func(user UserQueries)GetUserStatus(handle string, from int, count int) (error, 
 				ProblemSetName: "",
 				Index:          prob["index"].(string),
 				Name:           prob["name"].(string),
-				Points:         prob["points"].(float64),
-				Rating:         uint(prob["rating"].(float64)),
+				Points:         0,
+				Rating:         0,
 				Tags:           GetStringArray(prob["tags"].([]interface{})), // nil,//prob["tags"].([]string),
 				SolveCount: 	0,
 			},
@@ -118,6 +118,12 @@ func(user UserQueries)GetUserStatus(handle string, from int, count int) (error, 
 			TimeConsumed:    uint(submission["timeConsumedMillis"].(float64)),
 			MemoryConsumed:  uint(submission["memoryConsumedBytes"].(float64)),
 			Points:          0,
+		}
+		if val, present := prob["points"]; present{
+			newSubmission.Prob.Points = val.(float64)
+		}
+		if val, present := prob["rating"]; present{
+			newSubmission.Prob.Rating = uint(val.(float64))
 		}
 		subArr = append(subArr, newSubmission)
 	}
@@ -136,10 +142,10 @@ func GetStringArray(arr []interface{})[]string{
 func(users UserQueries)GetUserRatings(handle string)(error, []Objects.RatingChange){
 	url := "https://codeforces.com/api/user.rating?handle=" + handle
 	resp, err := http.Get(url)
-	defer resp.Body.Close()
 	if err != nil{
 		return err, nil
 	}
+	defer resp.Body.Close()
 	jsonStr, readErr := ioutil.ReadAll(resp.Body)
 	if readErr != nil{
 		return readErr, nil
