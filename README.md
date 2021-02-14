@@ -11,7 +11,7 @@ This is a Go Program that aims to provides various useful analytical tools for t
 5. To execute, run ```./main``` <br>
 
 ## Functionality Provided
-Currently the program provides contest level and user level analytics.
+Currently the program provides contest level and user level analytics. Some of them include:
 ###  Contest level analytics
 1. ```Stats.ContestStats.GetTopRanker``` function provides the top ranker for a given contest and the corresponding users rating changes. <br>
 2. ```Stats.ContestStats.GetTopAchiever``` function provides the top rating gainer for a given contest and the corresponding users rating changes. <br>
